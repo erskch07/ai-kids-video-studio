@@ -4,519 +4,651 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AI Kids Video Studio</title>
-    <link rel="stylesheet" href="styles/main.css">
-    <link rel="stylesheet" href="styles/dashboard.css">
+    
+    <!-- Core Styles -->
+    <link rel="stylesheet" href="styles/base.css">
+    <link rel="stylesheet" href="styles/layout.css">
+    <link rel="stylesheet" href="styles/components.css">
     <link rel="stylesheet" href="styles/script-editor.css">
     <link rel="stylesheet" href="styles/settings.css">
+    <link rel="stylesheet" href="styles/responsive.css">
 </head>
 <body>
-    <div class="app-container">
-        <!-- Sidebar Navigation -->
-        <aside class="sidebar">
-            <div class="sidebar-header">
+    <div id="app-container" class="app-container">
+        <!-- Header -->
+        <header class="app-header">
+            <div class="header-left">
                 <div class="logo">
-                    <span class="logo-icon">🎬</span>
-                    <span class="logo-text">AI Kids<br>Video Studio</span>
+                    <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                        <rect width="32" height="32" rx="8" fill="#6366f1"/>
+                        <path d="M10 8h12v16H10z" fill="white" opacity="0.2"/>
+                        <circle cx="16" cy="16" r="4" fill="white"/>
+                    </svg>
+                    <span class="logo-text">AI Kids Studio</span>
+                </div>
+                <div class="current-project">
+                    <span class="label">Project:</span>
+                    <span id="current-project" class="project-name">No project loaded</span>
                 </div>
             </div>
-
-            <nav class="main-nav">
-                <button class="nav-item active" data-view="dashboard">
-                    <span class="icon">📊</span>
-                    <span class="label">Dashboard</span>
+            
+            <div class="header-center">
+                <h1 id="page-title" class="page-title">Dashboard</h1>
+            </div>
+            
+            <div class="header-right">
+                <button class="btn-icon-small" title="Help">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <path d="M12 16v-4M12 8h.01"></path>
+                    </svg>
                 </button>
-                <button class="nav-item" data-view="project">
-                    <span class="icon">📁</span>
-                    <span class="label">Project</span>
-                </button>
-                <button class="nav-item" data-view="script">
-                    <span class="icon">📝</span>
-                    <span class="label">Script</span>
-                </button>
-                <button class="nav-item" data-view="characters">
-                    <span class="icon">👥</span>
-                    <span class="label">Characters</span>
-                </button>
-                <button class="nav-item" data-view="locations">
-                    <span class="icon">🏠</span>
-                    <span class="label">Locations</span>
-                </button>
-                <button class="nav-item" data-view="scenes">
-                    <span class="icon">🎞️</span>
-                    <span class="label">Scenes</span>
-                </button>
-                <button class="nav-item" data-view="voices">
-                    <span class="icon">🎤</span>
-                    <span class="label">Voices</span>
-                </button>
-                <button class="nav-item" data-view="assets">
-                    <span class="icon">🎨</span>
-                    <span class="label">Assets</span>
-                </button>
-                <button class="nav-item" data-view="generation">
-                    <span class="icon">⚙️</span>
-                    <span class="label">Generation</span>
-                </button>
-                <button class="nav-item" data-view="timeline">
-                    <span class="icon">⏱️</span>
-                    <span class="label">Timeline</span>
-                </button>
-                <button class="nav-item" data-view="preview">
-                    <span class="icon">👁️</span>
-                    <span class="label">Preview</span>
-                </button>
-                <button class="nav-item" data-view="export">
-                    <span class="icon">💾</span>
-                    <span class="label">Export</span>
-                </button>
-                <button class="nav-item" data-view="youtube">
-                    <span class="icon">▶️</span>
-                    <span class="label">YouTube</span>
-                </button>
-                <button class="nav-item" data-view="settings">
-                    <span class="icon">⚙️</span>
-                    <span class="label">Settings</span>
-                </button>
-            </nav>
-
-            <div class="sidebar-footer">
-                <button class="btn-icon-only" title="Help">
-                    <span>?</span>
+                <button class="btn-icon-small" title="Settings">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="3"></circle>
+                        <path d="M12 1v6m0 6v6M4.22 4.22l4.24 4.24m5.08 5.08l4.24 4.24M1 12h6m6 0h6m-15.78 7.78l4.24-4.24m5.08-5.08l4.24-4.24"></path>
+                    </svg>
                 </button>
             </div>
-        </aside>
+        </header>
 
-        <!-- Main Content Area -->
-        <main class="main-content">
-            <!-- Top Header -->
-            <header class="top-header">
-                <div class="header-left">
-                    <h1 id="page-title">Dashboard</h1>
-                    <div class="project-info">
-                        <span id="current-project">No project loaded</span>
+        <!-- Main Container -->
+        <div class="main-container">
+            <!-- Sidebar Navigation -->
+            <aside class="sidebar">
+                <nav class="nav-menu">
+                    <div class="nav-section">
+                        <h3 class="nav-section-title">Main</h3>
+                        <a href="#" class="nav-item active" data-view="dashboard">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="3" y="3" width="7" height="7"></rect>
+                                <rect x="14" y="3" width="7" height="7"></rect>
+                                <rect x="14" y="14" width="7" height="7"></rect>
+                                <rect x="3" y="14" width="7" height="7"></rect>
+                            </svg>
+                            <span>Dashboard</span>
+                        </a>
+                        <a href="#" class="nav-item" data-view="project">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M11 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v10"></path>
+                                <polyline points="17 3 17 7 21 7"></polyline>
+                            </svg>
+                            <span>Project</span>
+                        </a>
+                        <a href="#" class="nav-item" data-view="script">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                                <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                            </svg>
+                            <span>Script Editor</span>
+                        </a>
                     </div>
-                </div>
-                <div class="header-right">
-                    <button class="btn-primary btn-create-video" style="display: none;">
-                        CREATE VIDEO
-                    </button>
-                    <div class="header-actions">
-                        <button class="btn-icon-only" title="Notifications">
-                            🔔
-                        </button>
-                        <button class="btn-icon-only" title="User Menu">
-                            👤
-                        </button>
+
+                    <div class="nav-section">
+                        <h3 class="nav-section-title">Bibles</h3>
+                        <a href="#" class="nav-item" data-view="characters">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                <circle cx="12" cy="7" r="4"></circle>
+                            </svg>
+                            <span>Characters</span>
+                        </a>
+                        <a href="#" class="nav-item" data-view="locations">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                                <circle cx="12" cy="10" r="3"></circle>
+                            </svg>
+                            <span>Locations</span>
+                        </a>
+                        <a href="#" class="nav-item" data-view="scenes">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="2" y="7" width="20" height="15" rx="2"></rect>
+                                <polyline points="17 2 12 7 7 2"></polyline>
+                            </svg>
+                            <span>Scenes</span>
+                        </a>
+                        <a href="#" class="nav-item" data-view="voices">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                                <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+                            </svg>
+                            <span>Voices</span>
+                        </a>
                     </div>
-                </div>
-            </header>
 
-            <!-- Views Container -->
-            <div class="views-container">
-                <!-- Dashboard View -->
-                <section id="dashboard-view" class="view active">
-                    <div class="dashboard-grid">
-                        <!-- Quick Actions -->
-                        <div class="card card-span-2">
-                            <h2>Quick Actions</h2>
-                            <div class="quick-actions">
-                                <button class="btn-large" id="new-project-btn">
-                                    <span class="icon">➕</span>
-                                    New Project
-                                </button>
-                                <button class="btn-large" id="open-project-btn">
-                                    <span class="icon">📂</span>
-                                    Open Project
-                                </button>
-                                <button class="btn-large" id="duplicate-project-btn" disabled>
-                                    <span class="icon">📋</span>
-                                    Duplicate
-                                </button>
-                            </div>
+                    <div class="nav-section">
+                        <h3 class="nav-section-title">Generation</h3>
+                        <a href="#" class="nav-item" data-view="assets">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="3" y="3" width="18" height="18" rx="2"></rect>
+                                <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                                <polyline points="21 15 16 10 5 21"></polyline>
+                            </svg>
+                            <span>Assets</span>
+                        </a>
+                        <a href="#" class="nav-item" data-view="generation">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <line x1="12" y1="5" x2="12" y2="19"></line>
+                                <polyline points="19 12 12 19 5 12"></polyline>
+                            </svg>
+                            <span>Generation Queue</span>
+                        </a>
+                    </div>
+
+                    <div class="nav-section">
+                        <h3 class="nav-section-title">Output</h3>
+                        <a href="#" class="nav-item" data-view="timeline">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <line x1="8" y1="6" x2="21" y2="6"></line>
+                                <line x1="8" y1="12" x2="21" y2="12"></line>
+                                <line x1="8" y1="18" x2="21" y2="18"></line>
+                                <line x1="3" y1="6" x2="3.01" y2="6"></line>
+                                <line x1="3" y1="12" x2="3.01" y2="12"></line>
+                                <line x1="3" y1="18" x2="3.01" y2="18"></line>
+                            </svg>
+                            <span>Timeline</span>
+                        </a>
+                        <a href="#" class="nav-item" data-view="preview">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                <circle cx="12" cy="12" r="3"></circle>
+                            </svg>
+                            <span>Preview</span>
+                        </a>
+                        <a href="#" class="nav-item" data-view="export">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                <polyline points="7 10 12 15 17 10"></polyline>
+                                <line x1="12" y1="15" x2="12" y2="3"></line>
+                            </svg>
+                            <span>Export</span>
+                        </a>
+                        <a href="#" class="nav-item" data-view="youtube">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"></path>
+                                <polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon>
+                            </svg>
+                            <span>YouTube</span>
+                        </a>
+                    </div>
+
+                    <div class="nav-section">
+                        <h3 class="nav-section-title">System</h3>
+                        <a href="#" class="nav-item" data-view="settings">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="3"></circle>
+                                <path d="M12 1v6m0 6v6M4.22 4.22l4.24 4.24m5.08 5.08l4.24 4.24M1 12h6m6 0h6m-15.78 7.78l4.24-4.24m5.08-5.08l4.24-4.24"></path>
+                            </svg>
+                            <span>Settings</span>
+                        </a>
+                    </div>
+                </nav>
+            </aside>
+
+            <!-- Content Area -->
+            <main class="content-area">
+                <div class="views-container">
+                    <!-- Dashboard View -->
+                    <div id="dashboard-view" class="view active" data-view="dashboard">
+                        <div class="view-header">
+                            <h2>Welcome to AI Kids Video Studio</h2>
+                            <p>Create animated videos for children in minutes using AI</p>
                         </div>
 
-                        <!-- Project Overview -->
-                        <div class="card">
-                            <h3>Project Overview</h3>
-                            <div class="stat-group">
-                                <div class="stat">
-                                    <span class="stat-value" id="stat-scenes">0</span>
-                                    <span class="stat-label">Scenes</span>
-                                </div>
-                                <div class="stat">
-                                    <span class="stat-value" id="stat-characters">0</span>
-                                    <span class="stat-label">Characters</span>
-                                </div>
-                                <div class="stat">
-                                    <span class="stat-value" id="stat-locations">0</span>
-                                    <span class="stat-label">Locations</span>
+                        <div class="dashboard-grid">
+                            <!-- Quick Actions -->
+                            <div class="dashboard-card">
+                                <h3>Quick Start</h3>
+                                <div class="quick-actions">
+                                    <button id="new-project-btn" class="btn btn-primary">
+                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <line x1="12" y1="5" x2="12" y2="19"></line>
+                                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                                        </svg>
+                                        New Project
+                                    </button>
+                                    <button id="open-project-btn" class="btn btn-secondary">
+                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                            <circle cx="12" cy="7" r="4"></circle>
+                                        </svg>
+                                        Open Project
+                                    </button>
                                 </div>
                             </div>
-                        </div>
 
-                        <!-- Duration Info -->
-                        <div class="card">
-                            <h3>Video Duration</h3>
-                            <div class="duration-info">
-                                <div class="duration-item">
-                                    <span class="duration-label">Estimated:</span>
-                                    <span class="duration-value" id="estimated-duration">—</span>
-                                </div>
-                                <div class="duration-item">
-                                    <span class="duration-label">Actual:</span>
-                                    <span class="duration-value" id="actual-duration">—</span>
+                            <!-- Project Statistics -->
+                            <div class="dashboard-card">
+                                <h3>Project Statistics</h3>
+                                <div class="stats-grid">
+                                    <div class="stat-row">
+                                        <span class="stat-label">Scenes</span>
+                                        <span id="stat-scenes" class="stat-value">0</span>
+                                    </div>
+                                    <div class="stat-row">
+                                        <span class="stat-label">Characters</span>
+                                        <span id="stat-characters" class="stat-value">0</span>
+                                    </div>
+                                    <div class="stat-row">
+                                        <span class="stat-label">Locations</span>
+                                        <span id="stat-locations" class="stat-value">0</span>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <!-- Generation Status -->
-                        <div class="card card-span-2">
-                            <h3>Generation Status</h3>
-                            <div class="progress-section">
-                                <div class="progress-bar">
-                                    <div class="progress-fill" id="generation-progress" style="width: 0%"></div>
-                                </div>
-                                <div class="progress-text">
-                                    <span id="progress-percentage">0%</span>
-                                </div>
-                            </div>
-                            <div class="generation-stats">
-                                <div class="stat-row">
-                                    <span>Completed Tasks:</span>
-                                    <span id="completed-tasks">0</span>
-                                </div>
-                                <div class="stat-row">
-                                    <span>Failed Tasks:</span>
-                                    <span id="failed-tasks">0</span>
-                                </div>
-                                <div class="stat-row">
-                                    <span>Remaining:</span>
-                                    <span id="remaining-tasks">0</span>
+                            <!-- Duration Info -->
+                            <div class="dashboard-card">
+                                <h3>Duration</h3>
+                                <div class="stats-grid">
+                                    <div class="stat-row">
+                                        <span class="stat-label">Estimated</span>
+                                        <span id="estimated-duration" class="stat-value">0s</span>
+                                    </div>
+                                    <div class="stat-row">
+                                        <span class="stat-label">Actual</span>
+                                        <span id="actual-duration" class="stat-value">0s</span>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <!-- Recent Projects -->
-                        <div class="card card-span-2">
-                            <h3>Recent Projects</h3>
-                            <div id="recent-projects-list" class="projects-list">
-                                <p class="empty-state">No recent projects. Create a new one to begin.</p>
+                            <!-- Generation Progress -->
+                            <div class="dashboard-card">
+                                <h3>Generation Progress</h3>
+                                <div class="progress-container">
+                                    <div class="progress-bar">
+                                        <div id="generation-progress" class="progress-fill" style="width: 0%"></div>
+                                    </div>
+                                    <div class="progress-text">
+                                        <span id="progress-percentage">0%</span>
+                                    </div>
+                                    <div class="progress-stats">
+                                        <div class="progress-stat">
+                                            <span class="label">Completed:</span>
+                                            <span id="completed-tasks">0</span>
+                                        </div>
+                                        <div class="progress-stat">
+                                            <span class="label">Failed:</span>
+                                            <span id="failed-tasks">0</span>
+                                        </div>
+                                        <div class="progress-stat">
+                                            <span class="label">Remaining:</span>
+                                            <span id="remaining-tasks">0</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Recent Projects -->
+                            <div class="dashboard-card dashboard-card-full">
+                                <h3>Recent Projects</h3>
+                                <div id="recent-projects-list" class="projects-list">
+                                    <p class="empty-state">No recent projects. Create a new one to begin.</p>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </section>
 
-                <!-- Project Management View -->
-                <section id="project-view" class="view">
-                    <div class="card">
-                        <h2>Project Management</h2>
-                        
-                        <div class="form-group">
-                            <label for="project-name">Project Name</label>
-                            <input type="text" id="project-name" placeholder="My Children's Story">
+                    <!-- Project View -->
+                    <div id="project-view" class="view" data-view="project">
+                        <div class="view-header">
+                            <h2>Project Management</h2>
                         </div>
 
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="project-description">Description</label>
-                                <textarea id="project-description" placeholder="Describe your project..." rows="3"></textarea>
-                            </div>
-                            <div class="form-group">
-                                <label for="project-age-group">Target Age Group</label>
-                                <select id="project-age-group">
-                                    <option value="">Auto-detect</option>
-                                    <option value="preschool">Preschool (2-4)</option>
-                                    <option value="5-8">Ages 5-8</option>
-                                    <option value="9-12">Ages 9-12</option>
-                                    <option value="all-ages">All Ages</option>
-                                </select>
-                            </div>
-                        </div>
+                        <div class="project-container">
+                            <form class="project-form">
+                                <div class="form-group">
+                                    <label for="project-name">Project Name</label>
+                                    <input type="text" id="project-name" class="form-control" placeholder="Enter project name" required>
+                                </div>
 
-                        <div class="form-group">
-                            <label for="project-visual-style">Visual Style</label>
-                            <select id="project-visual-style">
-                                <option value="">Auto-recommend</option>
-                                <option value="2d-cartoon">2D Cartoon</option>
-                                <option value="3d-animation">3D Animation</option>
-                                <option value="storybook">Storybook Style</option>
-                                <option value="educational">Educational Animation</option>
-                                <option value="soft-cinematic">Soft Cinematic</option>
-                                <option value="colorful-family">Colorful Family</option>
-                            </select>
-                        </div>
+                                <div class="form-group">
+                                    <label for="project-description">Description</label>
+                                    <textarea id="project-description" class="form-control" placeholder="Enter project description" rows="3"></textarea>
+                                </div>
 
-                        <div class="form-actions">
-                            <button class="btn-primary" id="save-project-btn">Save Project</button>
-                            <button class="btn-secondary" id="delete-project-btn" disabled>Delete Project</button>
-                        </div>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="project-age-group">Target Age Group</label>
+                                        <select id="project-age-group" class="form-control">
+                                            <option value="3-5">3-5 years</option>
+                                            <option value="5-8">5-8 years</option>
+                                            <option value="8-12">8-12 years</option>
+                                            <option value="12+">12+ years</option>
+                                        </select>
+                                    </div>
 
-                        <div id="project-message" class="message"></div>
-                    </div>
-                </section>
+                                    <div class="form-group">
+                                        <label for="project-visual-style">Visual Style</label>
+                                        <select id="project-visual-style" class="form-control">
+                                            <option value="cartoon">Cartoon</option>
+                                            <option value="realistic">Realistic</option>
+                                            <option value="claymation">Claymation</option>
+                                            <option value="watercolor">Watercolor</option>
+                                            <option value="3d">3D</option>
+                                        </select>
+                                    </div>
+                                </div>
 
-                <!-- Script Editor View -->
-                <section id="script-view" class="view">
-                    <div class="script-editor-container">
-                        <div class="script-toolbar">
-                            <div class="toolbar-left">
-                                <button class="btn-icon" title="Clear Script" id="clear-script-btn">
-                                    🗑️ Clear
-                                </button>
-                                <button class="btn-icon" title="Import TXT" id="import-txt-btn">
-                                    📥 Import
-                                </button>
-                                <button class="btn-icon" title="Save Script" id="save-script-btn">
-                                    💾 Save
-                                </button>
-                            </div>
-                            <div class="toolbar-right">
-                                <span class="char-count">
-                                    <span id="char-count">0</span> characters
-                                </span>
-                            </div>
-                        </div>
+                                <div class="form-actions">
+                                    <button type="button" id="save-project-btn" class="btn btn-primary">Save Project</button>
+                                    <button type="button" id="duplicate-project-btn" class="btn btn-secondary">Duplicate</button>
+                                    <button type="button" id="delete-project-btn" class="btn btn-danger">Delete</button>
+                                </div>
 
-                        <textarea id="script-editor" class="script-editor" placeholder="Paste or type your children's story here...&#10;&#10;Example:&#10;&#10;Title: The Lost Kitten&#10;&#10;Scene 1: A sunny garden&#10;Little Mia was playing outside when she heard a soft meow..."></textarea>
-
-                        <div class="script-actions">
-                            <button class="btn-primary btn-lg" id="analyze-script-btn">
-                                🔍 ANALYZE SCRIPT
-                            </button>
+                                <div id="project-message" class="message"></div>
+                            </form>
                         </div>
                     </div>
-                </section>
 
-                <!-- Characters View -->
-                <section id="characters-view" class="view">
-                    <div class="card">
-                        <h2>Character Bible</h2>
-                        <div id="characters-list" class="characters-list">
+                    <!-- Script Editor View -->
+                    <div id="script-view" class="view" data-view="script">
+                        <div class="view-header">
+                            <h2>Script Editor</h2>
+                            <p>Write or paste your script here. AI will analyze it and generate scenes.</p>
+                        </div>
+
+                        <div class="script-editor-container">
+                            <div class="script-toolbar">
+                                <div class="toolbar-group">
+                                    <button id="analyze-script-btn" class="btn btn-primary">
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <circle cx="12" cy="12" r="10"></circle>
+                                            <path d="M12 16v-4M12 8h.01"></path>
+                                        </svg>
+                                        Analyze Script
+                                    </button>
+                                    <button id="save-script-btn" class="btn btn-secondary">Save</button>
+                                    <button id="clear-script-btn" class="btn btn-secondary">Clear</button>
+                                    <button id="import-txt-btn" class="btn btn-secondary">Import TXT</button>
+                                </div>
+                                <div class="toolbar-group">
+                                    <span class="char-count">Characters: <span id="char-count">0</span></span>
+                                </div>
+                            </div>
+
+                            <textarea id="script-editor" class="script-editor" placeholder="Paste your script here..."></textarea>
+                        </div>
+                    </div>
+
+                    <!-- Characters View -->
+                    <div id="characters-view" class="view" data-view="characters">
+                        <div class="view-header">
+                            <h2>Character Bible</h2>
+                            <p>Manage and customize your characters</p>
+                        </div>
+                        <div id="characters-list" class="cards-grid">
                             <p class="empty-state">No characters yet. Analyze your script to auto-extract characters.</p>
                         </div>
                     </div>
-                </section>
 
-                <!-- Locations View -->
-                <section id="locations-view" class="view">
-                    <div class="card">
-                        <h2>Location Bible</h2>
-                        <div id="locations-list" class="locations-list">
+                    <!-- Locations View -->
+                    <div id="locations-view" class="view" data-view="locations">
+                        <div class="view-header">
+                            <h2>Location Bible</h2>
+                            <p>Manage and customize your locations</p>
+                        </div>
+                        <div id="locations-list" class="cards-grid">
                             <p class="empty-state">No locations yet. Analyze your script to auto-extract locations.</p>
                         </div>
                     </div>
-                </section>
 
-                <!-- Scenes View -->
-                <section id="scenes-view" class="view">
-                    <div class="card">
-                        <h2>Scene Breakdown</h2>
-                        <div id="scenes-list" class="scenes-list">
+                    <!-- Scenes View -->
+                    <div id="scenes-view" class="view" data-view="scenes">
+                        <div class="view-header">
+                            <h2>Scene Breakdown</h2>
+                            <p>Manage and customize your scenes</p>
+                        </div>
+                        <div id="scenes-list" class="cards-grid">
                             <p class="empty-state">No scenes yet. Analyze your script to auto-generate scenes.</p>
                         </div>
                     </div>
-                </section>
 
-                <!-- Voices View -->
-                <section id="voices-view" class="view">
-                    <div class="card">
-                        <h2>Voice Bible</h2>
-                        <div id="voices-list" class="voices-list">
+                    <!-- Voices View -->
+                    <div id="voices-view" class="view" data-view="voices">
+                        <div class="view-header">
+                            <h2>Voice Bible</h2>
+                            <p>Manage voice assignments and audio settings</p>
+                        </div>
+                        <div id="voices-list" class="cards-grid">
                             <p class="empty-state">No voices yet. Voices will be assigned during script analysis.</p>
                         </div>
                     </div>
-                </section>
 
-                <!-- Assets View -->
-                <section id="assets-view" class="view">
-                    <div class="card">
-                        <h2>Generated Assets</h2>
-                        <div id="assets-list" class="assets-list">
+                    <!-- Assets View -->
+                    <div id="assets-view" class="view" data-view="assets">
+                        <div class="view-header">
+                            <h2>Generated Assets</h2>
+                            <p>View and manage generated video assets</p>
+                        </div>
+                        <div id="assets-list" class="cards-grid">
                             <p class="empty-state">No assets generated yet.</p>
                         </div>
                     </div>
-                </section>
 
-                <!-- Generation View -->
-                <section id="generation-view" class="view">
-                    <div class="card">
-                        <h2>Generation Queue</h2>
-                        <div id="generation-queue" class="generation-queue">
-                            <p class="empty-state">No generation tasks yet.</p>
+                    <!-- Generation Queue View -->
+                    <div id="generation-view" class="view" data-view="generation">
+                        <div class="view-header">
+                            <h2>Generation Queue</h2>
+                            <p>Monitor generation tasks</p>
+                        </div>
+                        <div id="generation-queue" class="queue-container">
+                            <p class="empty-state">No generation tasks in queue.</p>
                         </div>
                     </div>
-                </section>
 
-                <!-- Timeline View -->
-                <section id="timeline-view" class="view">
-                    <div class="card">
-                        <h2>Timeline</h2>
-                        <div id="timeline-container" class="timeline-container">
-                            <p class="empty-state">No timeline yet. Generate scenes to build timeline.</p>
+                    <!-- Timeline View -->
+                    <div id="timeline-view" class="view" data-view="timeline">
+                        <div class="view-header">
+                            <h2>Timeline</h2>
+                            <p>Edit and arrange your video timeline</p>
+                        </div>
+                        <div class="timeline-container">
+                            <p class="empty-state">No timeline data available.</p>
                         </div>
                     </div>
-                </section>
 
-                <!-- Preview View -->
-                <section id="preview-view" class="view">
-                    <div class="card">
-                        <h2>Preview</h2>
-                        <div id="preview-container" class="preview-container">
-                            <p class="empty-state">No video to preview yet.</p>
+                    <!-- Preview View -->
+                    <div id="preview-view" class="view" data-view="preview">
+                        <div class="view-header">
+                            <h2>Preview</h2>
+                            <p>Preview your animated video</p>
+                        </div>
+                        <div class="preview-container">
+                            <video class="preview-player" controls></video>
                         </div>
                     </div>
-                </section>
 
-                <!-- Export View -->
-                <section id="export-view" class="view">
-                    <div class="card">
-                        <h2>Export</h2>
-                        <div id="export-options" class="export-options">
-                            <p class="empty-state">Complete generation to export video.</p>
+                    <!-- Export View -->
+                    <div id="export-view" class="view" data-view="export">
+                        <div class="view-header">
+                            <h2>Export</h2>
+                            <p>Export your video in different formats</p>
+                        </div>
+                        <div class="export-container">
+                            <div class="export-options">
+                                <div class="export-option">
+                                    <h3>Video Format</h3>
+                                    <select class="form-control">
+                                        <option>MP4 (H.264)</option>
+                                        <option>WebM</option>
+                                        <option>MOV</option>
+                                    </select>
+                                </div>
+                                <div class="export-option">
+                                    <h3>Resolution</h3>
+                                    <select class="form-control">
+                                        <option>1920x1080 (Full HD)</option>
+                                        <option>1280x720 (HD)</option>
+                                        <option>854x480 (480p)</option>
+                                    </select>
+                                </div>
+                                <button class="btn btn-primary">Export Video</button>
+                            </div>
                         </div>
                     </div>
-                </section>
 
-                <!-- YouTube View -->
-                <section id="youtube-view" class="view">
-                    <div class="card">
-                        <h2>YouTube Package</h2>
-                        <div id="youtube-package" class="youtube-package">
-                            <p class="empty-state">Generate video to create YouTube package.</p>
+                    <!-- YouTube View -->
+                    <div id="youtube-view" class="view" data-view="youtube">
+                        <div class="view-header">
+                            <h2>YouTube Package</h2>
+                            <p>Generate thumbnail and prepare for YouTube upload</p>
+                        </div>
+                        <div class="youtube-container">
+                            <div class="youtube-options">
+                                <div class="form-group">
+                                    <label>Video Title</label>
+                                    <input type="text" class="form-control" placeholder="Enter video title">
+                                </div>
+                                <div class="form-group">
+                                    <label>Description</label>
+                                    <textarea class="form-control" placeholder="Enter video description" rows="4"></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label>Tags</label>
+                                    <input type="text" class="form-control" placeholder="Enter tags separated by comma">
+                                </div>
+                                <button class="btn btn-primary">Generate Package</button>
+                            </div>
                         </div>
                     </div>
-                </section>
 
-                <!-- Settings View -->
-                <section id="settings-view" class="view">
-                    <div class="card">
-                        <h2>Settings</h2>
-                        
-                        <div class="settings-section">
-                            <h3>Google AI Configuration</h3>
-                            
-                            <div class="form-group">
-                                <label for="google-api-key">Google API Key</label>
-                                <input type="password" id="google-api-key" placeholder="Enter your Google API key">
-                                <small>Keep this secret. Use environment variables in production.</small>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="google-text-model">Text Analysis Model</label>
-                                <select id="google-text-model">
-                                    <option value="gemini-2.0-flash">Gemini 2.0 Flash</option>
-                                    <option value="gemini-1.5-pro">Gemini 1.5 Pro</option>
-                                </select>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="google-image-model">Image Generation Model</label>
-                                <select id="google-image-model">
-                                    <option value="imagen-3">Imagen 3</option>
-                                </select>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="google-video-model">Video Generation Model</label>
-                                <select id="google-video-model">
-                                    <option value="vids-1">Vids 1</option>
-                                </select>
-                            </div>
+                    <!-- Settings View -->
+                    <div id="settings-view" class="view" data-view="settings">
+                        <div class="view-header">
+                            <h2>Settings</h2>
+                            <p>Configure application settings</p>
                         </div>
 
-                        <div class="settings-section">
-                            <h3>Generation Defaults</h3>
+                        <div class="settings-container">
+                            <form class="settings-form">
+                                <fieldset>
+                                    <legend>Google AI Configuration</legend>
+                                    <div class="form-group">
+                                        <label for="google-api-key">Google API Key</label>
+                                        <input type="password" id="google-api-key" class="form-control" placeholder="Enter your Google API key">
+                                        <small>Get your API key from <a href="https://makersuite.google.com/app/apikey" target="_blank">Google AI Studio</a></small>
+                                    </div>
 
-                            <div class="form-group">
-                                <label for="default-age-group">Default Age Group</label>
-                                <select id="default-age-group">
-                                    <option value="5-8">Ages 5-8</option>
-                                    <option value="preschool">Preschool (2-4)</option>
-                                    <option value="9-12">Ages 9-12</option>
-                                </select>
-                            </div>
+                                    <div class="form-row">
+                                        <div class="form-group">
+                                            <label for="google-text-model">Text Model</label>
+                                            <select id="google-text-model" class="form-control">
+                                                <option>gemini-2.0-flash</option>
+                                                <option>gemini-1.5-pro</option>
+                                                <option>gemini-1.5-flash</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="google-image-model">Image Model</label>
+                                            <select id="google-image-model" class="form-control">
+                                                <option>gemini-2.0-flash</option>
+                                                <option>gemini-1.5-pro</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="google-video-model">Video Model</label>
+                                            <select id="google-video-model" class="form-control">
+                                                <option>gemini-2.0-flash</option>
+                                                <option>gemini-1.5-pro</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </fieldset>
 
-                            <div class="form-group">
-                                <label for="default-visual-style">Default Visual Style</label>
-                                <select id="default-visual-style">
-                                    <option value="2d-cartoon">2D Cartoon</option>
-                                    <option value="3d-animation">3D Animation</option>
-                                    <option value="storybook">Storybook Style</option>
-                                </select>
-                            </div>
+                                <fieldset>
+                                    <legend>Project Defaults</legend>
+                                    <div class="form-row">
+                                        <div class="form-group">
+                                            <label for="default-age-group">Default Age Group</label>
+                                            <select id="default-age-group" class="form-control">
+                                                <option value="3-5">3-5 years</option>
+                                                <option value="5-8" selected>5-8 years</option>
+                                                <option value="8-12">8-12 years</option>
+                                                <option value="12+">12+ years</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="default-visual-style">Default Visual Style</label>
+                                            <select id="default-visual-style" class="form-control">
+                                                <option value="cartoon" selected>Cartoon</option>
+                                                <option value="realistic">Realistic</option>
+                                                <option value="claymation">Claymation</option>
+                                                <option value="watercolor">Watercolor</option>
+                                                <option value="3d">3D</option>
+                                            </select>
+                                        </div>
+                                    </div>
 
-                            <div class="form-group">
-                                <label>
-                                    <input type="checkbox" id="auto-generate-music" checked>
-                                    Auto-generate background music
-                                </label>
-                            </div>
+                                    <div class="form-group checkbox">
+                                        <input type="checkbox" id="auto-generate-music" class="form-checkbox">
+                                        <label for="auto-generate-music">Auto-generate music</label>
+                                    </div>
+                                    <div class="form-group checkbox">
+                                        <input type="checkbox" id="auto-generate-sfx" class="form-checkbox">
+                                        <label for="auto-generate-sfx">Auto-generate sound effects</label>
+                                    </div>
+                                </fieldset>
 
-                            <div class="form-group">
-                                <label>
-                                    <input type="checkbox" id="auto-generate-sfx" checked>
-                                    Auto-generate sound effects
-                                </label>
-                            </div>
+                                <fieldset>
+                                    <legend>Video Output</legend>
+                                    <div class="form-row">
+                                        <div class="form-group">
+                                            <label for="video-resolution">Resolution</label>
+                                            <select id="video-resolution" class="form-control">
+                                                <option value="1920x1080">1920x1080 (Full HD)</option>
+                                                <option value="1280x720">1280x720 (HD)</option>
+                                                <option value="854x480">854x480 (480p)</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="video-framerate">Frame Rate</label>
+                                            <select id="video-framerate" class="form-control">
+                                                <option value="24">24 fps</option>
+                                                <option value="30" selected>30 fps</option>
+                                                <option value="60">60 fps</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </fieldset>
+
+                                <div class="form-actions">
+                                    <button type="button" id="save-settings-btn" class="btn btn-primary">Save Settings</button>
+                                    <button type="button" id="reset-settings-btn" class="btn btn-secondary">Reset to Defaults</button>
+                                </div>
+
+                                <div id="settings-message" class="message"></div>
+                            </form>
                         </div>
-
-                        <div class="settings-section">
-                            <h3>Video Quality</h3>
-
-                            <div class="form-group">
-                                <label for="video-resolution">Resolution</label>
-                                <select id="video-resolution">
-                                    <option value="1080p">1080p (1920x1080)</option>
-                                    <option value="720p">720p (1280x720)</option>
-                                </select>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="video-framerate">Frame Rate</label>
-                                <select id="video-framerate">
-                                    <option value="30">30 FPS</option>
-                                    <option value="24">24 FPS</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="form-actions">
-                            <button class="btn-primary" id="save-settings-btn">Save Settings</button>
-                            <button class="btn-secondary" id="reset-settings-btn">Reset to Defaults</button>
-                        </div>
-
-                        <div id="settings-message" class="message"></div>
                     </div>
-                </section>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Modals -->
+    <div id="analysis-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Analyzing Script...</h2>
             </div>
-        </main>
-
-        <!-- Modal for Analysis Loading -->
-        <div id="analysis-modal" class="modal" style="display: none;">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h2>Analyzing Script...</h2>
-                </div>
-                <div class="modal-body">
-                    <div class="spinner"></div>
-                    <p id="analysis-status">Extracting story structure...</p>
-                </div>
+            <div class="modal-body">
+                <div class="spinner"></div>
+                <p id="analysis-status">Analyzing script...</p>
             </div>
         </div>
+    </div>
 
-        <!-- Modal for Confirmation -->
-        <div id="confirm-modal" class="modal" style="display: none;">
-            <div class="modal-content modal-small">
-                <div class="modal-header">
-                    <h2 id="confirm-title">Confirm Action</h2>
-                </div>
-                <div class="modal-body">
-                    <p id="confirm-message"></p>
-                </div>
-                <div class="modal-footer">
-                    <button class="btn-secondary" id="confirm-cancel">Cancel</button>
-                    <button class="btn-primary" id="confirm-ok">Confirm</button>
-                </div>
+    <div id="confirm-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="confirm-title">Confirm</h2>
+            </div>
+            <div class="modal-body">
+                <p id="confirm-message"></p>
+            </div>
+            <div class="modal-footer">
+                <button id="confirm-cancel" class="btn btn-secondary">Cancel</button>
+                <button id="confirm-ok" class="btn btn-primary">OK</button>
             </div>
         </div>
     </div>
