@@ -19,6 +19,11 @@ jobs:
     name: ⚡ Fast Build & Cache
     runs-on: ubuntu-latest
     timeout-minutes: 8
+    # OPTIONAL: Set if your code lives in a subfolder (e.g., 'frontend' or 'studio')
+    # defaults:
+    #   run:
+    #     working-directory: ./studio
+
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
@@ -28,33 +33,32 @@ jobs:
         with:
           node-version: 22
           cache: 'npm'
+          # Uncomment and update if package-lock is inside a folder:
+          # cache-dependency-path: 'studio/package-lock.json'
 
-      - name: 📦 Cache Vite & Remotion Bundles
+      - name: 📦 Cache Vite Artifacts
         uses: actions/cache@v4
         with:
           path: |
             node_modules/.vite
             .cache
-            dist
-          key: ${{ runner.os }}-build-${{ hashFiles('package-lock.json', 'src/**') }}
-          restore-keys: ${{ runner.os }}-build-
+          key: ${{ runner.os }}-vite-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-vite-
 
       - name: 📥 Install Dependencies
         run: npm ci --prefer-offline --no-audit
 
-      - name: 🛠️ Build (Parallel Typecheck/Vite)
+      - name: 🛠️ Build (Typecheck & Bundle)
         run: |
-          npx tsc --noEmit &
-          TSC_PID=$!
-          npm run build &
-          BUILD_PID=$!
-          wait $TSC_PID
-          wait $BUILD_PID
+          npx tsc --noEmit
+          npm run build
 
-      - name: 📤 Archive
+      - name: 📤 Archive Dist Artifacts
         if: github.ref == 'refs/heads/main'
         uses: actions/upload-artifact@v4
         with:
           name: dist
           path: dist/
           compression-level: 9
+          if-no-files-found: error
