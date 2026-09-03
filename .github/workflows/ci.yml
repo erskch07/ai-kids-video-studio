@@ -20,7 +20,8 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 8
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout Code
+        uses: actions/checkout@v4
 
       - name: 🟢 Setup Node.js 22
         uses: actions/setup-node@v4
@@ -42,11 +43,13 @@ jobs:
         run: npm ci --prefer-offline --no-audit
 
       - name: 🛠️ Build (Parallel Typecheck/Vite)
-        # Using tsc --noEmit for faster type checking; builds in parallel
         run: |
           npx tsc --noEmit &
+          TSC_PID=$!
           npm run build &
-          wait
+          BUILD_PID=$!
+          wait $TSC_PID
+          wait $BUILD_PID
 
       - name: 📤 Archive
         if: github.ref == 'refs/heads/main'
@@ -55,3 +58,4 @@ jobs:
           name: dist
           path: dist/
           compression-level: 9
+```
