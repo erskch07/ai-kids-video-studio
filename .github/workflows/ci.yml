@@ -1,0 +1,57 @@
+name: 🚀 High-Performance Build Pipeline
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: ⚡ Fast Build & Cache
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: 🟢 Setup Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: 'npm'
+
+      - name: 📦 Cache Vite & Remotion Bundles
+        uses: actions/cache@v4
+        with:
+          path: |
+            node_modules/.vite
+            .cache
+            dist
+          key: ${{ runner.os }}-build-${{ hashFiles('package-lock.json', 'src/**') }}
+          restore-keys: ${{ runner.os }}-build-
+
+      - name: 📥 Install Dependencies
+        run: npm ci --prefer-offline --no-audit
+
+      - name: 🛠️ Build (Parallel Typecheck/Vite)
+        # Using tsc --noEmit for faster type checking; builds in parallel
+        run: |
+          npx tsc --noEmit &
+          npm run build &
+          wait
+
+      - name: 📤 Archive
+        if: github.ref == 'refs/heads/main'
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: dist/
+          compression-level: 9
